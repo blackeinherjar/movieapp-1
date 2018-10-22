@@ -10,9 +10,10 @@ class App extends Component {
     this.state = {
       movies: []
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
+  getAllMovies = () => {
     axios
       .get('/getallmovies')
       .then(result => {
@@ -22,16 +23,48 @@ class App extends Component {
       .catch(error => {
         console.log(error);
       });
+  };
+  componentDidMount() {
+    this.getAllMovies();
   }
 
+  handleSubmit(e) {
+    const query = `/getmovie?title=${this.input.value}`;
+    alert('query: ', query);
+    console.log(query);
+    e.preventDefault();
+    axios
+      .get(query)
+      .then(result => {
+        this.getAllMovies();
+      })
+      .catch(error => {
+        alert('Error: ', error);
+      });
+  }
+
+  //https://www.codementor.io/blizzerand/building-forms-using-react-everything-you-need-to-know-iz3eyoq4y
+  //todo add buttons to delete rows
+  //https://codepen.io/aaronschwartz/pen/awOyQq?editors=0010
+  //https://github.com/react-tools/react-table/issues/324
   render() {
     var data = this.state.movies;
+    data = data.reverse();
 
     return (
       <div className="App">
         <div className="jumbotron text-center header">
           <h1>Movies</h1>
           <p>Search for movies</p>
+        </div>
+        <div className="container">
+          <form onSubmit={this.handleSubmit}>
+            <label>
+              Name:
+              <input type="text" ref={input => (this.input = input)} />
+            </label>
+            <input type="submit" value="Submit" />
+          </form>
         </div>
         <div className="container">
           <ReactTable
@@ -46,11 +79,26 @@ class App extends Component {
                 accessor: 'year'
               },
               {
+                Header: 'Genre',
+                accessor: 'genre',
+                style: { 'white-space': 'unset' }
+              },
+              {
+                Header: 'Actors',
+                accessor: 'actors',
+                style: { 'white-space': 'unset' }
+              },
+              {
+                Header: 'Plot',
+                accessor: 'plot',
+                style: { 'white-space': 'unset' }
+              },
+              {
                 Poster: 'Poster',
                 Cell: row => {
                   return (
                     <div>
-                      <img height={34} src={data.poster} />
+                      <img height={150} src={row.original.poster} />
                     </div>
                   );
                 }

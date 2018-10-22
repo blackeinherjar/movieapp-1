@@ -50,6 +50,17 @@ app.get('/getallmovies', (req, res) => {
     });
 });
 
+//localhost:5000/deletemovie?title=MovieTitle
+app.get('/deletemovie', (req, res) => {
+  Movie.deleteMany({ title: req.query.title })
+    .then(response => {
+      res.status(200).json(response);
+    })
+    .catch(error => {
+      res.status(400).json(error);
+    });
+});
+
 app.listen(5000, () => {
   console.log('server listening on port 5000');
 });
