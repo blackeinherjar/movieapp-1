@@ -76,73 +76,83 @@ class App extends Component {
           <h1>Movies</h1>
           <p>Search for movies</p>
         </div>
-        <div className="container">
-          <form onSubmit={this.handleSubmit}>
-            <label>
-              Name:
-              <input type="text" ref={input => (this.input = input)} />
-            </label>
-            <input type="submit" value="Submit" />
-          </form>
+        <div className="container search">
+          <div className="col-sm-12">
+            <p />
+            <form onSubmit={this.handleSubmit}>
+              <label>Enter movie title:</label>
+              <input
+                type="text"
+                class="form-control"
+                ref={input => (this.input = input)}
+              />
+              <p />
+              <input type="submit" value="Submit" />
+            </form>
+            <p />
+          </div>
           <div>
             <Popup />
           </div>
         </div>
 
         <div className="container">
-          <ReactTable
-            data={data}
-            columns={[
-              {
-                Header: 'Delete',
-                accessor: 'title',
-                Cell: ({ value }) => (
-                  <a
-                    onClick={() => {
-                      this.deleteRecord(value);
-                    }}
-                  >
-                    Delete
-                  </a>
-                )
-              },
-              {
-                Header: 'Title',
-                accessor: 'title'
-              },
-              {
-                Header: 'Year',
-                accessor: 'year'
-              },
-              {
-                Header: 'Genre',
-                accessor: 'genre',
-                style: { 'white-space': 'unset' }
-              },
-              {
-                Header: 'Actors',
-                accessor: 'actors',
-                style: { 'white-space': 'unset' }
-              },
-              {
-                Header: 'Plot',
-                accessor: 'plot',
-                style: { 'white-space': 'unset' }
-              },
-              {
-                Poster: 'Poster',
-                Cell: row => {
-                  return (
-                    <div>
-                      <img height={150} src={row.original.poster} />
-                    </div>
-                  );
+          <div className="col-sm-12">
+            <p />
+            <ReactTable
+              data={data}
+              columns={[
+                {
+                  Header: 'Delete',
+                  accessor: 'title',
+                  Cell: ({ value }) => (
+                    <a
+                      onClick={() => {
+                        this.deleteRecord(value);
+                      }}
+                    >
+                      Delete
+                    </a>
+                  )
+                },
+                {
+                  Header: 'Title',
+                  accessor: 'title'
+                },
+                {
+                  Header: 'Year',
+                  accessor: 'year'
+                },
+                {
+                  Header: 'Genre',
+                  accessor: 'genre',
+                  style: { 'white-space': 'unset' }
+                },
+                {
+                  Header: 'Actors',
+                  accessor: 'actors',
+                  style: { 'white-space': 'unset' }
+                },
+                {
+                  Header: 'Plot',
+                  accessor: 'plot',
+                  style: { 'white-space': 'unset' }
+                },
+                {
+                  Poster: 'Poster',
+                  Cell: row => {
+                    return (
+                      <div>
+                        <img height={250} src={row.original.poster} />
+                      </div>
+                    );
+                  }
                 }
-              }
-            ]}
-            defaultPageSize={5}
-            className="-striped -highlight"
-          />
+              ]}
+              defaultPageSize={5}
+              className="-striped -highlight"
+            />
+          </div>
         </div>
       </div>
     );

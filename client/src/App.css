@@ -30,3 +30,18 @@
     transform: rotate(360deg);
   }
 }
+
+.header {
+  background-color: rgb(159, 187, 247);
+}
+.search {
+  background-color: rgb(241, 241, 169);
+}
+
+.table {
+  background-color: rgb(241, 201, 169);
+}
+
+.sensorgraph {
+  background-color: rgb(183, 248, 177);
+}
